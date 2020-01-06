@@ -7,7 +7,7 @@ export const determinateProp = (prosp, type, sizes, def) => {
   if (!currentSize) {
     return def;
   }
-  const value = prosp[type + toUpperFirst(currentSize)];
+  const value = prosp[type + firstToUpper(currentSize)];
   return value || def;
 };
 

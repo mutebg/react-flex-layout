@@ -11,6 +11,8 @@ const MQs = {
 };
 
 export default class FlexProvider extends React.Component {
+  eventRegistry = {};
+
   constructor() {
     super();
     this.state = { mq: createInitState(MQs) };
@@ -21,7 +23,7 @@ export default class FlexProvider extends React.Component {
       const mq = MQs[key];
       let mql = window.matchMedia(mq);
 
-      mql.addListener(e => {
+      const listener = e => {
         let newState = [];
         const mqState = this.state.mq;
         if (e.matches) {
@@ -32,12 +34,20 @@ export default class FlexProvider extends React.Component {
         this.setState({
           mq: newState
         });
-      });
+      };
+      mql.addListener(listener);
+      this.eventRegistry = {
+        key: { mql, listener }
+      };
     });
   }
 
   componentWillUnmount() {
-    console.log("TODO: remove MQs listeners");
+    // remove MQ listeners
+    Object.keys(this.eventRegistry).forEach(key => {
+      const { mql, listener } = this.eventRegistry[key];
+      mql.removeListener(listener);
+    });
   }
 
   render() {

@@ -1,5 +1,5 @@
-import FlexItem from "./item";
-import FlexRow from "./row";
 import FlexProvider from "./provider";
+import FlexRow from "./row";
+import FlexItem from "./item";
 
 export { FlexItem, FlexRow, FlexProvider };
