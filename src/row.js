@@ -1,12 +1,13 @@
 import React from "react";
 import { Context } from "./context";
 import { determinateProp } from "./utils";
+import { createCSS } from "./css";
 
 export default ({ children, layout, align, gap, ...props }) => {
   const mq = React.useContext(Context);
 
   const style = {
-    display: "flex"
+    display: "flex",
   };
 
   const defaultLayoyt = layout || null;
@@ -83,5 +84,7 @@ export default ({ children, layout, align, gap, ...props }) => {
     }
   }
 
-  return <div style={style}>{children}</div>;
+  const className = createCSS(style);
+
+  return <div className={className}>{children}</div>;
 };

@@ -1,4 +1,4 @@
-export const firstToUpper = str => {
+export const firstToUpper = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
@@ -11,7 +11,7 @@ export const determinateProp = (prosp, type, sizes, def) => {
   return value || def;
 };
 
-export const createInitState = mqs =>
+export const createInitState = (mqs) =>
   Object.keys(mqs).reduce((prev, key) => {
     const mq = mqs[key];
     let mql = window.matchMedia(mq);

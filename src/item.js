@@ -1,6 +1,7 @@
 import React from "react";
 import { Context } from "./context";
 import { determinateProp } from "./utils";
+import { createCSS } from "./css";
 
 const FLEX_FILL_CSS = {
   margin: 0,
@@ -8,7 +9,7 @@ const FLEX_FILL_CSS = {
   height: "100%",
   minWidth: "100%",
   minHeight: "100%",
-  flex: "auto"
+  flex: "auto",
 };
 
 export default ({ children, size, offset, fill, align, order, ...props }) => {
@@ -63,5 +64,7 @@ export default ({ children, size, offset, fill, align, order, ...props }) => {
     style = { ...style, ...FLEX_FILL_CSS };
   }
 
-  return <div style={style}>{children}</div>;
+  const className = createCSS(style);
+
+  return <div className={className}>{children}</div>;
 };
