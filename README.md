@@ -76,6 +76,5 @@ function App() {
 
 ## ToDo
 
-- Dinamicly create CSS classes instead inline CSS
-- Add types
 - Posibility to add custom / configure breakpoints
+- Add types

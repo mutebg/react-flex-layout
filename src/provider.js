@@ -7,44 +7,58 @@ const MQs = {
   sm: "screen and (min-width: 600px) and (max-width: 959px)",
   md: "screen and (min-width: 960px) and (max-width: 1279px)",
   lg: "screen and (min-width: 1280px) and (max-width: 1919px)",
-  xl: "screen and (min-width: 1920px) and (max-width: 5000px)"
+  xl: "screen and (min-width: 1920px) and (max-width: 5000px)",
 };
 
 export default class FlexProvider extends React.Component {
   eventRegistry = {};
 
-  constructor() {
-    super();
-    this.state = { mq: createInitState(MQs) };
+  constructor(props) {
+    super(props);
+    let currentMQ = MQs;
+    const { queries, behaviour } = this.props.config;
+    if (queries) {
+      if (behaviour === "override") {
+        currentMQ = queries;
+      } else {
+        currentMQ = { ...currentMQ, ...queries };
+      }
+    }
+
+    console.log({ currentMQ });
+
+    this.currentMQ = currentMQ;
+
+    this.state = { mq: createInitState(currentMQ) };
   }
 
   componentDidMount() {
-    Object.keys(MQs).forEach(key => {
-      const mq = MQs[key];
+    Object.keys(this.currentMQ).forEach((key) => {
+      const mq = this.currentMQ[key];
       let mql = window.matchMedia(mq);
 
-      const listener = e => {
+      const listener = (e) => {
         let newState = [];
         const mqState = this.state.mq;
         if (e.matches) {
           newState = [...mqState, key];
         } else {
-          newState = mqState.filter(m => m !== key);
+          newState = mqState.filter((m) => m !== key);
         }
         this.setState({
-          mq: newState
+          mq: newState,
         });
       };
       mql.addListener(listener);
       this.eventRegistry = {
-        key: { mql, listener }
+        key: { mql, listener },
       };
     });
   }
 
   componentWillUnmount() {
     // remove MQ listeners
-    Object.keys(this.eventRegistry).forEach(key => {
+    Object.keys(this.eventRegistry).forEach((key) => {
       const { mql, listener } = this.eventRegistry[key];
       mql.removeListener(listener);
     });
