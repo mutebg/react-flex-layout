@@ -5,7 +5,7 @@ React components for creating responsive flex layout inspired by [@angular/flex-
 ## Install
 
 ```
-npm i -s react-flexlayout
+npm i -s react-flexylayout
 ```
 
 ## API
@@ -74,7 +74,31 @@ function App() {
 }
 ```
 
+## Custom breakpoints
+
+You can provide a config object to specify custom sizes and names for your media query breakpoints:
+
+- **queries**: Object containign media queries
+- **behaviour**: One of "replace" or "overrider", the default is replace.
+  - **override** the whole default media queries has been overrided.
+  - **replace** Its only update / append new media queries to default ones
+
+## Example
+
+```
+const config = {
+  queries: {
+    xs: "screen and (max-width: 700px)",
+    sm: "screen and (min-width: 701px) and (max-width: 959px)",
+  },
+  behaviour: "replace",
+};
+
+<FlexProvider config={config}>
+ <App />
+</FlexProvider>
+```
+
 ## ToDo
 
-- Posibility to add custom / configure breakpoints
 - Add types
