@@ -16,16 +16,16 @@ export default class FlexProvider extends React.Component {
   constructor(props) {
     super(props);
     let currentMQ = MQs;
-    const { queries, behaviour } = this.props.config;
-    if (queries) {
-      if (behaviour === "override") {
-        currentMQ = queries;
-      } else {
-        currentMQ = { ...currentMQ, ...queries };
+    if (this.props.config) {
+      const { queries, behaviour } = this.props.config;
+      if (queries) {
+        if (behaviour === "override") {
+          currentMQ = queries;
+        } else {
+          currentMQ = { ...currentMQ, ...queries };
+        }
       }
     }
-
-    console.log({ currentMQ });
 
     this.currentMQ = currentMQ;
 
