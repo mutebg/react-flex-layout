@@ -12,7 +12,18 @@ const FLEX_FILL_CSS = {
   flex: "auto",
 };
 
-export default ({ children, size, offset, fill, align, order, ...props }) => {
+export default ({
+  children,
+  size,
+  offset,
+  fill,
+  align,
+  order,
+  style: customCSS,
+  className = "",
+  element = "div",
+  ...props
+}) => {
   const mq = React.useContext(Context);
 
   // ['size', 'offset', 'align', 'order'].forEach(prop => {
@@ -64,7 +75,16 @@ export default ({ children, size, offset, fill, align, order, ...props }) => {
     style = { ...style, ...FLEX_FILL_CSS };
   }
 
-  const className = createCSS(style);
+  const mdClassName = createCSS(style);
 
-  return <div className={className}>{children}</div>;
+  const allProps = {
+    className: (mdClassName + " " + className).trim(),
+  };
+  if (customCSS) {
+    allProps["style"] = customCSS;
+  }
+
+  const Element = element;
+
+  return <Element {...allProps}>{children}</Element>;
 };

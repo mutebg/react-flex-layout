@@ -3,7 +3,16 @@ import { Context } from "./context";
 import { determinateProp } from "./utils";
 import { createCSS } from "./css";
 
-export default ({ children, layout, align, gap, ...props }) => {
+export default ({
+  children,
+  layout,
+  align,
+  gap,
+  style: customCSS,
+  className = "",
+  element = "div",
+  ...props
+}) => {
   const mq = React.useContext(Context);
 
   const style = {
@@ -84,7 +93,16 @@ export default ({ children, layout, align, gap, ...props }) => {
     }
   }
 
-  const className = createCSS(style);
+  const mdClassName = createCSS(style);
 
-  return <div className={className}>{children}</div>;
+  const allProps = {
+    className: (mdClassName + " " + className).trim(),
+  };
+  if (customCSS) {
+    allProps["style"] = customCSS;
+  }
+
+  const Element = element;
+
+  return <Element {...allProps}>{children}</Element>;
 };

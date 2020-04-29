@@ -25,6 +25,7 @@ The api provides 3 components: **FlexProvider, FlexRow, , FlexItem**
 - **gap**: Defines if child items within a flexbox container should have a gap
   `<FlexRow gap="10px" />`
 - **align**: Defines how flexbox items are aligned according to both the main-axis and the cross-axis, within a flexbox container `<FlexRow align="flex-start stretch" />`
+- **element**: you can specify the html element of FlexRow by default is `div`
 
 #### FlexItem properties
 
@@ -33,6 +34,7 @@ The api provides 3 components: **FlexProvider, FlexRow, , FlexItem**
 - **offset**: Offset a flexbox item in its parent container flow layout `<FlexItem offset="15px" />`
 - **order**: Defines the order of a flexbox item `<FlexItem order="2" />`
 - **fill**: Maximizes width and height of element in a layout container `<FlexItem fill />`
+- **element**: you can specify the html element of FlexItem by default is `div`
 
 ### Responsive API
 
