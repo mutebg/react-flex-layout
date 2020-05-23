@@ -22,6 +22,7 @@ export default ({
   style: customCSS,
   className = "",
   element = "div",
+  innerRef = null,
   ...props
 }) => {
   const mq = React.useContext(Context);
@@ -82,6 +83,10 @@ export default ({
   };
   if (customCSS) {
     allProps["style"] = customCSS;
+  }
+
+  if (innerRef) {
+    allProps["ref"] = innerRef;
   }
 
   const Element = element;
