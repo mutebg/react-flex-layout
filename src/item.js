@@ -12,85 +12,90 @@ const FLEX_FILL_CSS = {
   flex: "auto",
 };
 
-export default function Item({
-  children,
-  size,
-  offset,
-  fill,
-  align,
-  order,
-  style: customCSS,
-  className = "",
-  element = "div",
-  ...props
-}) {
-  const mq = React.useContext(Context);
+export default React.forwardRef(
+  (
+    {
+      children,
+      size,
+      offset,
+      fill,
+      align,
+      order,
+      style: customCSS,
+      className = "",
+      element = "div",
+      ...props
+    },
+    ref
+  ) => {
+    const mq = React.useContext(Context);
 
-  // ['size', 'offset', 'align', 'order'].forEach(prop => {
-  //   const defaultValue = props[prop] || null;
-  //   const styleValue = determinateProp(props, prop, mq, defaultValue);
-  // })
+    // ['size', 'offset', 'align', 'order'].forEach(prop => {
+    //   const defaultValue = props[prop] || null;
+    //   const styleValue = determinateProp(props, prop, mq, defaultValue);
+    // })
 
-  let style = {};
+    let style = {};
 
-  const defaultSize = size || null;
-  const styleWidth = determinateProp(props, "size", mq, defaultSize);
-  if (styleWidth) {
-    style["flex"] = `1 1 ${styleWidth}`;
-    if (styleWidth !== "auto") {
-      style["maxWidth"] = styleWidth;
+    const defaultSize = size || null;
+    const styleWidth = determinateProp(props, "size", mq, defaultSize);
+    if (styleWidth) {
+      style["flex"] = `1 1 ${styleWidth}`;
+      if (styleWidth !== "auto") {
+        style["maxWidth"] = styleWidth;
+      }
     }
-  }
 
-  const defaultOffset = offset || null;
-  const styleOffset = determinateProp(props, "offset", mq, defaultOffset);
-  if (styleOffset) {
-    style["marginLeft"] = styleOffset;
-  }
-
-  const defaultAlign = align || null;
-  const styleAlign = determinateProp(props, "align", mq, defaultAlign);
-  if (styleAlign) {
-    // Cross-axis
-    switch (styleAlign) {
-      case "start":
-        style["alignSelf"] = "flex-start";
-        break;
-      case "end":
-        style["alignSelf"] = "flex-end";
-        break;
-      default:
-        style["alignSelf"] = styleAlign;
-        break;
+    const defaultOffset = offset || null;
+    const styleOffset = determinateProp(props, "offset", mq, defaultOffset);
+    if (styleOffset) {
+      style["marginLeft"] = styleOffset;
     }
+
+    const defaultAlign = align || null;
+    const styleAlign = determinateProp(props, "align", mq, defaultAlign);
+    if (styleAlign) {
+      // Cross-axis
+      switch (styleAlign) {
+        case "start":
+          style["alignSelf"] = "flex-start";
+          break;
+        case "end":
+          style["alignSelf"] = "flex-end";
+          break;
+        default:
+          style["alignSelf"] = styleAlign;
+          break;
+      }
+    }
+
+    const defaultOrder = order || null;
+    const styleOrder = determinateProp(props, "order", mq, defaultOrder);
+    if (styleOrder) {
+      style["order"] = styleOrder;
+    }
+
+    if (fill) {
+      style = { ...style, ...FLEX_FILL_CSS };
+    }
+
+    const mdClassName = createCSS(style);
+
+    const allProps = {
+      className: (mdClassName + " " + className).trim(),
+    };
+    if (customCSS) {
+      allProps["style"] = customCSS;
+    }
+
+    const cleanedProps = cleanProps(props);
+
+    const Element = element;
+
+    return (
+      <Element {...allProps} ref={ref} {...cleanedProps}>
+        {children}
+      </Element>
+    );
   }
-
-  const defaultOrder = order || null;
-  const styleOrder = determinateProp(props, "order", mq, defaultOrder);
-  if (styleOrder) {
-    style["order"] = styleOrder;
-  }
-
-  if (fill) {
-    style = { ...style, ...FLEX_FILL_CSS };
-  }
-
-  const mdClassName = createCSS(style);
-
-  const allProps = {
-    className: (mdClassName + " " + className).trim(),
-  };
-  if (customCSS) {
-    allProps["style"] = customCSS;
-  }
-
-  const cleanedProps = cleanProps(props);
-
-  const Element = element;
-
-  return (
-    <Element {...allProps} {...cleanedProps}>
-      {children}
-    </Element>
-  );
-}
+);
