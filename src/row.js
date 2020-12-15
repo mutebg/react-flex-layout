@@ -1,6 +1,6 @@
 import React from "react";
 import { Context } from "./context";
-import { determinateProp } from "./utils";
+import { determinateProp, cleanProps } from "./utils";
 import { createCSS } from "./css";
 
 export default React.forwardRef(
@@ -106,10 +106,12 @@ export default React.forwardRef(
       allProps["style"] = customCSS;
     }
 
+    const cleanedProps = cleanProps(props);
+
     const Element = element;
 
     return (
-      <Element {...allProps} ref={ref} {...props}>
+      <Element {...allProps} ref={ref} {...cleanedProps}>
         {children}
       </Element>
     );

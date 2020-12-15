@@ -20,3 +20,19 @@ export const createInitState = (mqs) =>
     }
     return prev;
   }, []);
+
+export const cleanProps = (props) => {
+  const types = ["layout", "gap", "align", "size", "offset", "fill", "order"];
+  const mqs = ["xs", "sm", "md", "lg", "xl"];
+  const allCobinations = types
+    .map((type) => {
+      return mqs.map((mq) => type + firstToUpper(mq));
+    })
+    .flat();
+  return Object.keys(props).reduce((all, prop) => {
+    if (allCobinations.indexOf(prop) === -1) {
+      all[prop] = props[prop];
+    }
+    return all;
+  }, {});
+};
