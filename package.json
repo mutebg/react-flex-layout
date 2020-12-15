@@ -12,8 +12,8 @@
   "umd:main": "dist/index.umd.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "npx microbundle@0.11.0 --jsx React.createElement --external react",
-    "dev": "npx microbundle@0.11.0 watch --jsx React.createElement --external react",
+    "build": "npx microbundle@0.11.0 --jsx React.createElement --external \"react,react-dom,react-is\"",
+    "dev": "npx microbundle@0.11.0 watch --jsx React.createElement --external \"react,react-dom,react-is\"",
     "publish": "npx np"
   }
 }
