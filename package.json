@@ -1,24 +1,23 @@
 {
   "name": "react-flexylayout",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "",
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "microbundle": "^0.11.0"
+    "microbundle": "^0.14.2"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "react-is": "^16.8.0",
-    "react-dom": "^16.8.0"
+    "react": "16-17",
+    "react-dom": "16-17"
   },
   "source": "src/index.js",
   "main": "dist/index.js",
   "umd:main": "dist/index.umd.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "npx microbundle@0.11.0 --jsx React.createElement --external \"react,react-dom,react-is\" ",
-    "dev": "npx microbundle@0.11.0 watch --jsx React.createElement --external \"react,react-dom,react-is\"",
+    "build": "npx microbundle@0.14.2 --jsx React.createElement --external \"react,react-dom\" ",
+    "dev": "npx microbundle@0.14.2 watch --jsx React.createElement --external \"react,react-dom\"",
     "publish": "npx np"
   }
 }
